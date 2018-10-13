@@ -1,19 +1,16 @@
 import express from 'express'
 import Home from './container/Home'
-import React from 'react' // 页面中使用了 jsx 需要引入 react
+import React from 'react'
 
-// 客户端渲染的写法
-// import ReactDOM from 'react-dom'
-// ReactDOM.render(<Home />, document.getElementById('root'))
-
-// 服务端渲染的写法
 import { renderToString } from 'react-dom/server'
 
 const content = renderToString(<Home />)
 
 const app = express()
+
+app.use(express.static('public')) // 维护 public 目录下的静态文件
+
 app.get('/', (req, res) => {
-  // res.send(renderToString(<Home />))
   res.send(`
   <!DOCTYPE html>
   <html lang="en">
@@ -22,7 +19,10 @@ app.get('/', (req, res) => {
       <title>react ssr demo</title>
   </head>
   <body>
-      ${content}
+      <div id="root">${content}</div>
+      <!-- root div 标签需要书写成一行，不可有空格等无用元素 -->
+      <script src="/index.js"></script>
+      <!-- 重新调用 index.js 文件 -->
   </body>
   </html>
   `)
