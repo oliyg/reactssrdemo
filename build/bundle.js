@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/server/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -98,15 +98,15 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 
 /***/ }),
 
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/***/ "./src/server/index.js":
+/*!*****************************!*\
+  !*** ./src/server/index.js ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nvar _Home = __webpack_require__(/*! ./container/Home */ \"./src/container/Home/index.js\");\n\nvar _Home2 = _interopRequireDefault(_Home);\n\nvar _react = __webpack_require__(/*! react */ \"react\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _server = __webpack_require__(/*! react-dom/server */ \"react-dom/server\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar content = (0, _server.renderToString)(_react2.default.createElement(_Home2.default, null));\n\nvar app = (0, _express2.default)();\n\napp.use(_express2.default.static('public')); // 维护 public 目录下的静态文件\n\napp.get('/', function (req, res) {\n    res.send('\\n  <!DOCTYPE html>\\n  <html lang=\"en\">\\n  <head>\\n      <meta charset=\"UTF-8\">\\n      <title>react ssr demo</title>\\n  </head>\\n  <body>\\n      <div id=\"root\">' + content + '</div>\\n      <!-- root div \\u6807\\u7B7E\\u9700\\u8981\\u4E66\\u5199\\u6210\\u4E00\\u884C\\uFF0C\\u4E0D\\u53EF\\u6709\\u7A7A\\u683C\\u7B49\\u65E0\\u7528\\u5143\\u7D20 -->\\n      <script src=\"/index.js\"></script>\\n      <!-- \\u91CD\\u65B0\\u8C03\\u7528 index.js \\u6587\\u4EF6 -->\\n  </body>\\n  </html>\\n  ');\n});\n\nvar server = app.listen(3000);\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nvar _Home = __webpack_require__(/*! ../container/Home */ \"./src/container/Home/index.js\");\n\nvar _Home2 = _interopRequireDefault(_Home);\n\nvar _react = __webpack_require__(/*! react */ \"react\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _server = __webpack_require__(/*! react-dom/server */ \"react-dom/server\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar content = (0, _server.renderToString)(_react2.default.createElement(_Home2.default, null));\n\nvar app = (0, _express2.default)();\n\napp.use(_express2.default.static('public')); // 维护 public 目录下的静态文件\n\napp.get('/', function (req, res) {\n    res.send('\\n  <!DOCTYPE html>\\n  <html lang=\"en\">\\n  <head>\\n      <meta charset=\"UTF-8\">\\n      <title>react ssr demo</title>\\n  </head>\\n  <body>\\n      <div id=\"root\">' + content + '</div>\\n      <!-- root div \\u6807\\u7B7E\\u9700\\u8981\\u4E66\\u5199\\u6210\\u4E00\\u884C\\uFF0C\\u4E0D\\u53EF\\u6709\\u7A7A\\u683C\\u7B49\\u65E0\\u7528\\u5143\\u7D20 -->\\n      <script src=\"/index.js\"></script>\\n      <!-- \\u91CD\\u65B0\\u8C03\\u7528 index.js \\u6587\\u4EF6 -->\\n  </body>\\n  </html>\\n  ');\n});\n\nvar server = app.listen(3000);\n\n//# sourceURL=webpack:///./src/server/index.js?");
 
 /***/ }),
 
