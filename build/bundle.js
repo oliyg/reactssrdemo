@@ -86,6 +86,18 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./Routes.js":
+/*!*******************!*\
+  !*** ./Routes.js ***!
+  \*******************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _react = __webpack_require__(/*! react */ \"react\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _reactRouterDom = __webpack_require__(/*! react-router-dom */ \"react-router-dom\");\n\nvar _Home = __webpack_require__(/*! ./src/container/Home */ \"./src/container/Home/index.js\");\n\nvar _Home2 = _interopRequireDefault(_Home);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = _react2.default.createElement(\n  'div',\n  null,\n  _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _Home2.default })\n);\n\n//# sourceURL=webpack:///./Routes.js?");
+
+/***/ }),
+
 /***/ "./src/container/Home/index.js":
 /*!*************************************!*\
   !*** ./src/container/Home/index.js ***!
@@ -106,7 +118,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nvar _Home = __webpack_require__(/*! ../container/Home */ \"./src/container/Home/index.js\");\n\nvar _Home2 = _interopRequireDefault(_Home);\n\nvar _react = __webpack_require__(/*! react */ \"react\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _server = __webpack_require__(/*! react-dom/server */ \"react-dom/server\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar content = (0, _server.renderToString)(_react2.default.createElement(_Home2.default, null));\n\nvar app = (0, _express2.default)();\n\napp.use(_express2.default.static('public')); // 维护 public 目录下的静态文件\n\napp.get('/', function (req, res) {\n    res.send('\\n  <!DOCTYPE html>\\n  <html lang=\"en\">\\n  <head>\\n      <meta charset=\"UTF-8\">\\n      <title>react ssr demo</title>\\n  </head>\\n  <body>\\n      <div id=\"root\">' + content + '</div>\\n      <!-- root div \\u6807\\u7B7E\\u9700\\u8981\\u4E66\\u5199\\u6210\\u4E00\\u884C\\uFF0C\\u4E0D\\u53EF\\u6709\\u7A7A\\u683C\\u7B49\\u65E0\\u7528\\u5143\\u7D20 -->\\n      <script src=\"/index.js\"></script>\\n      <!-- \\u91CD\\u65B0\\u8C03\\u7528 index.js \\u6587\\u4EF6 -->\\n  </body>\\n  </html>\\n  ');\n});\n\nvar server = app.listen(3000);\n\n//# sourceURL=webpack:///./src/server/index.js?");
+eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nvar _react = __webpack_require__(/*! react */ \"react\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _reactRouterDom = __webpack_require__(/*! react-router-dom */ \"react-router-dom\");\n\nvar _server = __webpack_require__(/*! react-dom/server */ \"react-dom/server\");\n\nvar _Routes = __webpack_require__(/*! ../../Routes */ \"./Routes.js\");\n\nvar _Routes2 = _interopRequireDefault(_Routes);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar app = (0, _express2.default)();\n// 不再需要渲染 Home 组件而是路由 Routes\n// import Home from '../container/Home'\n\n\napp.use(_express2.default.static('public'));\n\napp.get('/', function (req, res) {\n  // 这里应该渲染 App 组件\n  // const content = renderToString(<Home />)\n  var content = (0, _server.renderToString)(_react2.default.createElement(\n    _reactRouterDom.StaticRouter,\n    { location: req.path, context: {} },\n    _Routes2.default\n  ));\n\n  res.send('\\n  <!DOCTYPE html>\\n  <html lang=\"en\">\\n  <head>\\n      <meta charset=\"UTF-8\">\\n      <title>react ssr demo</title>\\n  </head>\\n  <body>\\n      <div id=\"root\">' + content + '</div>\\n      <script src=\"/index.js\"></script>\\n  </body>\\n  </html>\\n  ');\n});\n\nvar server = app.listen(3000);\n\n//# sourceURL=webpack:///./src/server/index.js?");
 
 /***/ }),
 
@@ -140,6 +152,17 @@ eval("module.exports = require(\"react\");\n\n//# sourceURL=webpack:///external_
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"react-dom/server\");\n\n//# sourceURL=webpack:///external_%22react-dom/server%22?");
+
+/***/ }),
+
+/***/ "react-router-dom":
+/*!***********************************!*\
+  !*** external "react-router-dom" ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"react-router-dom\");\n\n//# sourceURL=webpack:///external_%22react-router-dom%22?");
 
 /***/ })
 

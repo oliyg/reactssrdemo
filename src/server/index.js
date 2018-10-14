@@ -1,16 +1,26 @@
 import express from 'express'
-import Home from '../container/Home'
 import React from 'react'
-
+import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
-
-const content = renderToString(<Home />)
+// 不再需要渲染 Home 组件而是路由 Routes
+// import Home from '../container/Home'
+import Routes from '../../Routes'
 
 const app = express()
 
-app.use(express.static('public')) // 维护 public 目录下的静态文件
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
+  // 这里应该渲染 App 组件
+  // const content = renderToString(<Home />)
+  const content = renderToString((
+    <StaticRouter location={req.path} context={{}}>
+      {/* StaticRouter 组件上必须传入一个 context 他的值是一个对象 */}
+      {/* 因为在服务端上，StaticRouter 无法获知用户所处的路径上，因此需要手动传入 location 对象 */}
+      {Routes}
+    </StaticRouter>
+  ))
+
   res.send(`
   <!DOCTYPE html>
   <html lang="en">
@@ -20,9 +30,7 @@ app.get('/', (req, res) => {
   </head>
   <body>
       <div id="root">${content}</div>
-      <!-- root div 标签需要书写成一行，不可有空格等无用元素 -->
       <script src="/index.js"></script>
-      <!-- 重新调用 index.js 文件 -->
   </body>
   </html>
   `)
