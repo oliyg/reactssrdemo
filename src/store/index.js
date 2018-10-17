@@ -1,11 +1,13 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux' // 引入 combineReducers
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
-import { reducer as homeReducer } from '../container/Home/store' // 引入模块下的 reducer
+import { reducer as homeReducer } from '../container/Home/store'
 
-const reducer = combineReducers({ // 合并 reducer
+const reducer = combineReducers({
   home: homeReducer
 })
 
-const getStore = () => createStore(reducer, applyMiddleware(thunk))
-
-export default getStore
+export const getStore = () => createStore(reducer, applyMiddleware(thunk))
+export const getClientStore = () => {
+  const defaultState = window.context.state // window 下的 context 可以获得 store 中服务端更新后的 store
+  return createStore(reducer, defaultState, applyMiddleware(thunk))
+}

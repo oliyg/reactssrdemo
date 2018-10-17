@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route } from 'react-router-dom'
 import Routes from '../../Routes'
 import { Provider } from 'react-redux'
-import getStore from '../store' // 获取 getStore 执行该函数创建 store
+import { getClientStore } from '../store' // 需要使用 getClientStore
 
 const App = () => {
   return (
-    <Provider store={getStore()}>
+    <Provider store={getClientStore()}>
       <BrowserRouter>
         <div>
           {
-            Routes.map(route => ( // 返回的不再是 JSX 因此需要做循环
+            Routes.map(route => (
               <Route {...route} />
             ))
           }
