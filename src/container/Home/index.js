@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Header from '../../components/Header'
 import { connect } from 'react-redux'
-import { getHomeList } from './store/actions' // 复杂的逻辑都在 getHomeList
+import { getHomeList } from './store/actions'
 
 class Home extends Component {
   getList () {
@@ -21,18 +21,22 @@ class Home extends Component {
   }
 
   componentDidMount () {
-    // 该生命周期函数只会在客户端触发，因此不会在服务端执行里面的异步获取数据的函数
     this.props.getHomeList()
   }
 }
 
-// 定义获取 store 中返回 state 和 dispatch 的函数
+Home.loadData = (store) => {
+  // 此处应为异步获取数据逻辑 接收 store 并派发 action
+  // 与 componentDidMount 类似
+  return store.dispatch(getHomeList()) // 将返回的 promise return 回去
+}
+
 const mapStateToProps = state => ({
   list: state.home.newsList
 })
 const mapDispatchToProps = dispatch => ({
   getHomeList () {
-    dispatch(getHomeList()) // 复杂的逻辑放在名为 getHomeList 的 action 中，然后 dispatch
+    dispatch(getHomeList())
   }
 })
 
