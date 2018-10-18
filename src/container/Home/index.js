@@ -22,15 +22,13 @@ class Home extends Component {
 
   componentDidMount () {
     if (!this.props.list.length) {
-      this.props.getHomeList()
+      this.props.getHomeList(false) // 客户端调用需要传入 false
     }
   }
 }
 
 Home.loadData = (store) => {
-  // 此处应为异步获取数据逻辑 接收 store 并派发 action
-  // 与 componentDidMount 类似
-  return store.dispatch(getHomeList()) // 将返回的 promise return 回去
+  return store.dispatch(getHomeList(true)) // 服务端调用需要传入 true
 }
 
 const mapStateToProps = state => ({

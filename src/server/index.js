@@ -1,12 +1,19 @@
 import express from 'express'
+import proxy from 'express-http-proxy'
 import { render } from './utils'
 import { matchRoutes } from 'react-router-config'
 import Routes from '../../Routes'
-import { getStore } from '../store' // 仍然使用 getStore
+import { getStore } from '../store'
 
 const app = express()
 
 app.use(express.static('public'))
+app.use('/api', proxy('http://localhost:3000', {
+  proxyReqPathResolver: function (req) {
+    const url = `/${req.url}`
+    return url
+  }
+}))
 
 app.get('*', (req, res) => {
   const store = getStore()
