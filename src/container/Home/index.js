@@ -13,7 +13,6 @@ class Home extends Component {
   render () {
     return (
       <div>
-        <Header></Header>
         {this.getList()}
         <button onClick={() => { console.log('clicked') }}>click</button>
       </div>
