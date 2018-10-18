@@ -1,13 +1,16 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import { reducer as homeReducer } from '../container/Home/store'
+import clientAxios from '../client/request'
+import serverAxios from '../server/request'
 
 const reducer = combineReducers({
   home: homeReducer
 })
 
-export const getStore = () => createStore(reducer, applyMiddleware(thunk))
+// 创建 store 的过程中可以使用 withExtraArguments 传递值
+export const getStore = () => createStore(reducer, applyMiddleware(thunk.withExtraArgument(serverAxios)))
 export const getClientStore = () => {
-  const defaultState = window.context.state // window 下的 context 可以获得 store 中服务端更新后的 store
-  return createStore(reducer, defaultState, applyMiddleware(thunk))
+  const defaultState = window.context.state
+  return createStore(reducer, defaultState, applyMiddleware(thunk.withExtraArgument(clientAxios)))
 }
