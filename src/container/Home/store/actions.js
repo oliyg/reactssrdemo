@@ -1,4 +1,5 @@
-import axios from 'axios'
+import clientAxios from '../../../client/request'
+import serverAxios from '../../../server/request'
 
 import { CHANGE_LIST } from './constants'
 
@@ -8,16 +9,11 @@ const changeList = (list) => ({
 })
 
 export const getHomeList = (server) => {
-  let url = ''
-  if (server) { // 根据服务端或客户端环境分别设定 url
-    url = 'http://localhost:3000/homelist.json'
-  } else {
-    url = '/api/homelist.json'
-  }
+  const request = server ? serverAxios : clientAxios
   return (dispatch) => {
-    return axios.get(url).then(d => {
-      console.log(d)
+    return request.get('/homelist.json').then(d => {
       d = d.data
+      console.log(d)
       dispatch(changeList(d))
     })
   }
