@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from './components/Header'
+import Header from './components/Header/'
 // 因为需要渲染二级路由，因此仍然需要使用 renderRoutes 模块
 import Routes from '../Routes'
 import { renderRoutes } from 'react-router-config'
