@@ -22,7 +22,7 @@ module.exports = [{
   method: 'GET',
   path: '/isLogin',
   handler: function (req, h) {
-    return h.response({ success: true, data: { login: getState() } })
+    return h.response({ success: true, data: { login: JSON.parse(getState()) } })
   }
 }, {
   method: 'GET',
