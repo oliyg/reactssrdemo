@@ -16,7 +16,7 @@ app.use('/api', proxy('http://localhost:3001', {
 }))
 
 app.get('*', (req, res) => {
-  const store = getStore()
+  const store = getStore(req) // 传入 req
   const matchedRoutes = matchRoutes(Routes, req.path)
 
   const promises = []

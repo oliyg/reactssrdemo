@@ -10,8 +10,7 @@ const reducer = combineReducers({
   header: headerReducer
 })
 
-// 创建 store 的过程中可以使用 withExtraArguments 传递值
-export const getStore = () => createStore(reducer, applyMiddleware(thunk.withExtraArgument(serverAxios)))
+export const getStore = (req) => createStore(reducer, applyMiddleware(thunk.withExtraArgument(serverAxios(req)))) // 将 serverAxios 改成闭包将 req 传入
 export const getClientStore = () => {
   const defaultState = window.context.state
   return createStore(reducer, defaultState, applyMiddleware(thunk.withExtraArgument(clientAxios)))
