@@ -5,6 +5,7 @@ import App from './src/App'
 export default [{
   path: '/',
   component: App,
+  loadData: App.loadData,
   routes: [{
     path: '/',
     component: Home,

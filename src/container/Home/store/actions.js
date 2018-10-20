@@ -13,7 +13,6 @@ export const getHomeList = (server) => {
   return (dispatch, getState, axiosInstance) => {
     return axiosInstance.get('/homelist.json').then(d => {
       d = d.data
-      console.log(d)
       dispatch(changeList(d))
     })
   }
