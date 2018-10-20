@@ -7,7 +7,7 @@ module.exports = [{
   handler: function (req, h) {
     changeState('true')
     setState(h, true)
-    return h.response('success')
+    return h.response({ success: true })
   }
 }, {
   method: 'GET',
@@ -16,18 +16,14 @@ module.exports = [{
   handler: function (req, h) {
     changeState('false')
     setState(h, false)
-    return h.response('success')
+    return h.response({ success: true })
   }
 }, {
   method: 'GET',
   path: '/isLogin',
-  options: { state: { parse: true, failAction: 'error' } },
   handler: function (req, h) {
-
-    const cookie = req.state
-
-    return h.response({ success: 'true', data: { login: cookie.login } })
-  },
+    return h.response({ success: true, data: { login: getState() } })
+  }
 }, {
   method: 'GET',
   path: '/{filename}',
@@ -48,6 +44,10 @@ function setState (h, globalLoginStatus) {
   })
 }
 
-function changeState(state) {
+function changeState (state) {
   fs.writeFileSync('./store/login.json', state, { encoding: 'UTF-8' })
+}
+
+function getState () {
+  return fs.readFileSync('./store/login.json', { encoding: 'UTF-8' })
 }
