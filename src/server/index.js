@@ -8,7 +8,7 @@ import { getStore } from '../store'
 const app = express()
 
 app.use(express.static('public'))
-app.use('/api', proxy('http://localhost:3000', {
+app.use('/api', proxy('http://localhost:3001', {
   proxyReqPathResolver: function (req) {
     const url = `/${req.url}`
     return url

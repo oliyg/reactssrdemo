@@ -21,14 +21,12 @@ class Home extends Component {
 
   componentDidMount () {
     if (!this.props.list.length) {
-      // this.props.getHomeList(false) // 客户端调用需要传入 false
-      this.props.getHomeList() // 不再需要传递 true or false
+      this.props.getHomeList()
     }
   }
 }
 
 Home.loadData = (store) => {
-  // return store.dispatch(getHomeList(true)) // 服务端调用需要传入 true
   return store.dispatch(getHomeList())
 }
 
