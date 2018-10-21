@@ -16,7 +16,7 @@ app.use('/api', proxy('http://localhost:3001', {
 }))
 
 app.get('*', (req, res) => {
-  const store = getStore(req) // 传入 req
+  const store = getStore(req)
   const matchedRoutes = matchRoutes(Routes, req.path)
 
   const promises = []
@@ -27,7 +27,17 @@ app.get('*', (req, res) => {
   })
 
   Promise.all(promises).then(() => {
-    res.send(render(store, Routes, req))
+    let context = {}
+    const html = render(store, Routes, req, context) // 传入上下文
+    // 404 页面组件中使用 this.props.NOT_FOUND = true
+    // 导致 context 对象中增加了 NOT_FOUND 这个 key
+    // 判断是否是 404 页面
+    if (context.NOT_FOUND) {
+      res.status(404) // 配置 status
+      res.send(html)
+    } else {
+      res.send(html)
+    }
   })
 })
 

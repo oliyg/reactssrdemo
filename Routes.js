@@ -1,5 +1,6 @@
 import Home from './src/container/Home'
 import Translation from './src/container/Translation'
+import NotFound from './src/container/NotFound'
 import App from './src/App'
 
 export default [{
@@ -17,6 +18,8 @@ export default [{
     component: Translation,
     key: 'translation',
     exact: true,
-    loadData: Translation.loadData // 需要异步获取数据
+    loadData: Translation.loadData
+  }, {
+    component: NotFound // 挂载 NotFound 页面
   }]
 }]
