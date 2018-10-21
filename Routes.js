@@ -1,5 +1,5 @@
 import Home from './src/container/Home'
-import Login from './src/container/Login'
+import Translation from './src/container/Translation'
 import App from './src/App'
 
 export default [{
@@ -13,9 +13,10 @@ export default [{
     exact: true,
     loadData: Home.loadData
   }, {
-    path: '/login',
-    component: Login,
-    key: 'login',
-    exact: true
+    path: '/translation',
+    component: Translation,
+    key: 'translation',
+    exact: true,
+    loadData: Translation.loadData // 需要异步获取数据
   }]
 }]

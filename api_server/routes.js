@@ -26,6 +26,26 @@ module.exports = [{
   }
 }, {
   method: 'GET',
+  path: '/translations',
+  handler: function (req, h) {
+    let ifLogin = JSON.parse(getState())
+    if (!ifLogin) {
+      return h.response({ success: false })
+    }
+    return h.response({ success: true,
+      data: [{
+        id: 1,
+        title: 'javascript in touch'
+      }, {
+        id: 2,
+        title: 'php tutorial'
+      }, {
+        id: 3,
+        title: 'learning python'
+      }] })
+  }
+}, {
+  method: 'GET',
   path: '/{filename}',
   handler: function (request, h) {
     return h.file(request.params.filename)
