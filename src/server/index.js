@@ -28,12 +28,11 @@ app.get('*', (req, res) => {
 
   Promise.all(promises).then(() => {
     let context = {}
-    const html = render(store, Routes, req, context) // 传入上下文
-    // 404 页面组件中使用 this.props.NOT_FOUND = true
-    // 导致 context 对象中增加了 NOT_FOUND 这个 key
-    // 判断是否是 404 页面
-    if (context.NOT_FOUND) {
-      res.status(404) // 配置 status
+    const html = render(store, Routes, req, context)
+    if (context.action === 'REPLACE') {
+      res.redirect(301, context.url) // 返回 301 状态码并跳转到指定的 url
+    } else if (context.NOT_FOUND) {
+      res.status(404)
       res.send(html)
     } else {
       res.send(html)
