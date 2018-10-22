@@ -22,15 +22,32 @@ app.get('*', (req, res) => {
   const promises = []
   matchedRoutes.forEach(item => {
     if (item.route.loadData) {
-      promises.push(item.route.loadData(store))
+      /*
+      解决办法：
+      then 和 catch 都最终 resolve
+      也就是无论异步接口如调用的最终情况如何，都 resolve 这个 promise
+      promises 数组中的 promise 全部为 resolve
+      因此 promises.all 方法一定会执行
+      */
+      const promise = new Promise(resolve => {
+        item.route.loadData(store).then(resolve).catch(resolve)
+      })
+      promises.push(promise)
     }
   })
 
+  /*
+  问题：
+  假设要加载 a b c d 四个组件
+  如果 a 组件的接口加载数据错误
+  1. b c d 数据都已经加载完毕了：那么会进入到 catch() 逻辑渲染 b c d
+  2. b c d 数据接口比较缓慢，导致加载不成功；那么会直接进入到 catch() 逻辑但渲染不了任何组件
+  */
   Promise.all(promises).then(() => {
     let context = {}
     const html = render(store, Routes, req, context)
     if (context.action === 'REPLACE') {
-      res.redirect(301, context.url) // 返回 301 状态码并跳转到指定的 url
+      res.redirect(301, context.url)
     } else if (context.NOT_FOUND) {
       res.status(404)
       res.send(html)
