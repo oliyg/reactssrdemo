@@ -17,12 +17,18 @@ export const render = (store, Routes, req, context) => {
       </StaticRouter>
     </Provider>
   ))
+
+  // 1. 在 render 函数中就可以获取到 css 字符串
+  const cssStr = context.css ? context.css : ''
+
+  // 2. 在 return 的字符串中新增一个 style 标签注入 cssStr 即可
   return `
   <!DOCTYPE html>
   <html lang="en">
   <head>
       <meta charset="UTF-8">
       <title>react ssr demo</title>
+      <style>${cssStr}</style>
   </head>
   <body>
       <div id="root">${content}</div>
