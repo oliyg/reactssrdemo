@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Header from '../../components/Header'
 import { connect } from 'react-redux'
 import { getHomeList } from './store/actions'
+import style from './style.css'
 
 class Home extends Component {
   getList () {
@@ -12,7 +13,7 @@ class Home extends Component {
   }
   render () {
     return (
-      <div>
+      <div className={style.test}>
         {this.getList()}
         <button onClick={() => { console.log('clicked') }}>click</button>
       </div>
