@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getTranslationList } from './store/actions'
 import { Redirect } from 'react-router-dom'
+import style from './style.css'
+import withStyle from '../../withStyle'
 
 class Translation extends Component {
   render () {
     // 根据 login 判断登陆状态
-    return this.props.login ? <div>{this.getList()}</div> : <Redirect to="/" />
+    return this.props.login ? <div className={style.test}>{this.getList()}</div> : <Redirect to="/" />
   }
   getList () { // 数据渲染逻辑
     const { list } = this.props
@@ -34,7 +36,7 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-const ExportTranslation = connect(mapStateToProps, mapDispatchToProps)(Translation)
+const ExportTranslation = connect(mapStateToProps, mapDispatchToProps)(withStyle(Translation, style))
 ExportTranslation.loadData = (store) => {
   return store.dispatch(getTranslationList())
 }

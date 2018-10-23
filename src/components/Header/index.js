@@ -3,17 +3,9 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { actions } from './store/'
 import style from './style.css'
+import withStyle from '../../withStyle'
 
 class Header extends Component {
-  componentWillMount () {
-    if (this.props.staticContext) {
-      // Header 组件在 App 组件内部，因此需要在 App 中对 Header 组件传入
-      // staticContext 属性，该属性等于 App 组件中获取的 staticContext
-      this.props.staticContext.css.push(style._getCss())
-      // 如果所有组件都设置 this.props.staticContext.css 的值那么该值会被覆盖
-      // 因此无法渲染所有的 css 所以应当将 css 定义为数组，并 push 进 css
-    }
-  }
   render () {
     const { login, handleLogin, handleLogout } = this.props
     return (
@@ -46,4 +38,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyle(Header, style))

@@ -3,14 +3,9 @@ import Header from '../../components/Header'
 import { connect } from 'react-redux'
 import { getHomeList } from './store/actions'
 import style from './style.css'
+import withStyle from '../../withStyle' // 引入 withStyle 函数
 
 class Home extends Component {
-  componentWillMount () {
-    if (this.props.staticContext) {
-      this.props.staticContext.css.push(style._getCss())
-    }
-  }
-
   getList () {
     const { list } = this.props
     return list.map(item => (
@@ -42,7 +37,7 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-const ExportHome = connect(mapStateToProps, mapDispatchToProps)(Home)
+const ExportHome = connect(mapStateToProps, mapDispatchToProps)(withStyle(Home, style)) // 直接使用该函数即可
 
 ExportHome.loadData = (store) => {
   return store.dispatch(getHomeList())
