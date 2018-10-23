@@ -23,10 +23,6 @@ class Translation extends Component {
   }
 }
 
-Translation.loadData = (store) => { // 需要服务端获取数据使用 loadData 方法
-  return store.dispatch(getTranslationList())
-}
-
 const mapStateToProps = state => ({ // 获取 state 渲染数据
   list: state.translation.translationList,
   login: state.header.login
@@ -38,4 +34,8 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Translation)
+const ExportTranslation = connect(mapStateToProps, mapDispatchToProps)(Translation)
+ExportTranslation.loadData = (store) => {
+  return store.dispatch(getTranslationList())
+}
+export default ExportTranslation
