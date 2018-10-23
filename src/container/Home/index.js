@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import Header from '../../components/Header'
 import { connect } from 'react-redux'
 import { getHomeList } from './store/actions'
 import style from './style.css'
-import withStyle from '../../withStyle' // 引入 withStyle 函数
+import withStyle from '../../withStyle'
 
 class Home extends Component {
   getList () {
