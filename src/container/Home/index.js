@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { getHomeList } from './store/actions'
 import style from './style.css'
 import withStyle from '../../withStyle'
@@ -13,10 +14,16 @@ class Home extends Component {
   }
   render () {
     return (
-      <div className={style.test}>
-        {this.getList()}
-        <button onClick={() => { console.log('clicked') }}>click</button>
-      </div>
+      <Fragment>
+        <Helmet>
+          <title>the testing title</title>
+          <meta name="description" content="testing description" />
+        </Helmet>
+        <div className={style.test}>
+          {this.getList()}
+          <button onClick={() => { console.log('clicked') }}>click</button>
+        </div>
+      </Fragment>
     )
   }
 

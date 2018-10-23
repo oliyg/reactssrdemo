@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { getTranslationList } from './store/actions'
 import { Redirect } from 'react-router-dom'
 import style from './style.css'
@@ -7,8 +8,15 @@ import withStyle from '../../withStyle'
 
 class Translation extends Component {
   render () {
-    // 根据 login 判断登陆状态
-    return this.props.login ? <div className={style.test}>{this.getList()}</div> : <Redirect to="/" />
+    return this.props.login ? (
+      <Fragment>
+        <Helmet>
+          <title>the testing title for translation page</title>
+          <meta name="description" content="testing description for translation page" />
+        </Helmet>
+        <div className={style.test}>{this.getList()}</div>
+      </Fragment>
+    ) : <Redirect to="/" />
   }
   getList () { // 数据渲染逻辑
     const { list } = this.props

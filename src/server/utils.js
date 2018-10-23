@@ -3,6 +3,7 @@ import { renderToString } from 'react-dom/server'
 import { StaticRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { renderRoutes } from 'react-router-config'
+import { Helmet } from 'react-helmet'
 
 export const render = (store, Routes, req, context) => {
   const content = renderToString((
@@ -16,6 +17,7 @@ export const render = (store, Routes, req, context) => {
       </StaticRouter>
     </Provider>
   ))
+  const helmet = Helmet.renderStatic()
 
   // 将 css 数组转换为字符串
   const cssStr = context.css.length ? context.css.join('\n') : ''
@@ -25,7 +27,8 @@ export const render = (store, Routes, req, context) => {
   <html lang="en">
   <head>
       <meta charset="UTF-8">
-      <title>react ssr demo</title>
+      ${helmet.title.toString()}
+      ${helmet.meta.toString()}
       <style>${cssStr}</style>
   </head>
   <body>
