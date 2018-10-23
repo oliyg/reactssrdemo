@@ -30,7 +30,7 @@ app.get('*', (req, res) => {
   })
 
   Promise.all(promises).then(() => {
-    let context = {}
+    let context = { css: [] } // 用于渲染 css
     const html = render(store, Routes, req, context)
     if (context.action === 'REPLACE') {
       res.redirect(301, context.url)
